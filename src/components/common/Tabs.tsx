@@ -1,6 +1,11 @@
 import { createContext, useContext, useState, type PropsWithChildren } from 'react'
 import cn from 'classnames'
 
+const TabContext = createContext({
+  activeTab: 0,
+  setActiveTab: (_: number) => {},
+})
+
 function Tabs({ children }: PropsWithChildren) {
   const [activeTab, setActiveTab] = useState(0)
 
@@ -11,13 +16,8 @@ function Tabs({ children }: PropsWithChildren) {
   )
 }
 
-const TabContext = createContext({
-  activeTab: 0,
-  setActiveTab: (_: number) => {},
-})
-
 export function TabList({ children }: PropsWithChildren) {
-  return <div className="flex gap-x-20">{children}</div>
+  return <div className="flex gap-x-20 justify-center">{children}</div>
 }
 
 export function Tab({ children, index }: PropsWithChildren<{ index: number }>) {
@@ -25,7 +25,7 @@ export function Tab({ children, index }: PropsWithChildren<{ index: number }>) {
   return (
     <button
       //   className={`${activeTab === index ? 'w-full' : ''}`}
-      className={cn('border-b-[3px] p-14', {
+      className={cn('border-b-[3px] p-[14px]', {
         'text-main border-main': activeTab === index,
         'border-transparent text-gray-500': activeTab !== index,
       })}

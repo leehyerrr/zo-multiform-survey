@@ -3,6 +3,7 @@
 /* prettier-ignore */
 @theme {
   --breakpoint-sm: 820px;
+  --spacing: 1px;
 
   --color-main: #0D00A4;
   --color-gray100: #E5E5EA;
@@ -16,6 +17,8 @@
   --color-gray900: #1A1A1A;
   --color-bg: #F6F6F9;
   --color-bg2: #FBFBFF;
+
+  --radius-10:10px;
 }
 
 html,
