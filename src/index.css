@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+
+/* prettier-ignore */
+@theme {
+  --breakpoint-sm: 820px;
+
+  --color-main: #0D00A4;
+  --color-gray100: #E5E5EA;
+  --color-gray200: #D4D4D4;
+  --color-gray300: #AEAEB2;
+  --color-gray400: #8E8E93;
+  --color-gray500: #848487;
+  --color-gray600: #636366;
+  --color-gray700: #4A4A4A;
+  --color-gray800: #303030;
+  --color-gray900: #1A1A1A;
+  --color-bg: #F6F6F9;
+  --color-bg2: #FBFBFF;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
