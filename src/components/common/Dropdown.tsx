@@ -84,10 +84,10 @@ function DropdownButton({ placeholder = 'selected' }: { placeholder?: string }) 
 
 function DropdwonMenu() {
   const { close, opened, options, onChange } = useContext(DropdownContext)
-  const containerRef = useOutsideClick(close)
+  const containerRef = useOutsideClick<HTMLDivElement>(close)
   return opened ? (
     <div
-      ref={containerRef as RefObject<HTMLDivElement>}
+      ref={containerRef}
       className="absolute left-0 top-100% w-full flex flex-col mt-10 border border-gray200 rounded-10 bg-white"
     >
       {options.map((option, index) => (
