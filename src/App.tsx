@@ -1,4 +1,5 @@
 import './App.css'
+import Dropdown from './components/common/Dropdown'
 import MainLayout from './components/common/MainLayout'
 import Panel, { PanelBody, PanelCap, PanelFooter, PanelHeader } from './components/common/Panel'
 import Tabs, { Tab, TabList, TabPanel, TabPanels } from './components/common/Tabs'
@@ -15,7 +16,17 @@ function App() {
           <TabPanel index={0}>
             <PanelCap>ttt</PanelCap>
             <Panel>
-              <PanelHeader>11</PanelHeader>
+              <PanelHeader>
+                header
+                <Dropdown<string>
+                  options={[
+                    { label: <div>일</div>, value: `1` },
+                    { label: <div>이</div>, value: `2` },
+                    { label: <div>삼</div>, value: `3` },
+                  ]}
+                  onChange={(value) => console.log(value)}
+                ></Dropdown>
+              </PanelHeader>
               <PanelBody>11</PanelBody>
               <PanelFooter>33</PanelFooter>
             </Panel>
