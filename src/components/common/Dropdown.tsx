@@ -5,7 +5,10 @@ import {
   useState,
   type PropsWithChildren,
   type ReactNode,
+  type RefObject,
 } from 'react'
+import ArrowIcon from '../../assets/icons/arrow_drop_down.svg?react'
+import useOutsideClick from '../../hooks/common/useOutsideClick'
 
 type DropdownOption<T> = {
   label: ReactNode
@@ -67,14 +70,26 @@ function Dropdown<T>({ placeholder, options, onChange }: PropsWithChildren<Dropd
 function DropdownButton({ placeholder = 'selected' }: { placeholder?: string }) {
   const { open, options, selected } = useContext(DropdownContext)!
   return (
-    <button onClick={open}>{selected >= 0 ? options[selected].label : (placeholder ?? '')}</button>
+    <button
+      className="border border-gray-300 rounded-10 min-w-197 p-12 pr-36 relative text-left"
+      onClick={open}
+    >
+      {selected >= 0 ? options[selected].label : (placeholder ?? '')}
+      <span className="absolute right-12 top-1/2 trasnform -translate-y-1/2">
+        <ArrowIcon />
+      </span>
+    </button>
   )
 }
 
 function DropdwonMenu() {
-  const { opened, options, onChange } = useContext(DropdownContext)
+  const { close, opened, options, onChange } = useContext(DropdownContext)
+  const containerRef = useOutsideClick(close)
   return opened ? (
-    <div>
+    <div
+      ref={containerRef as RefObject<HTMLDivElement>}
+      className="absolute left-0 top-100% w-full flex flex-col mt-10 border border-gray200 rounded-10 bg-white"
+    >
       {options.map((option, index) => (
         <DropdownMenuItem
           key={`${option.value}`}
@@ -87,7 +102,11 @@ function DropdwonMenu() {
 }
 
 function DropdownMenuItem({ label, onSelect }: { label: ReactNode; onSelect: () => void }) {
-  return <button onClick={onSelect}>{label}</button>
+  return (
+    <button className="text-left p-12 border-b border-gray200 last:border-none" onClick={onSelect}>
+      {label}
+    </button>
+  )
 }
 
 export default Dropdown
