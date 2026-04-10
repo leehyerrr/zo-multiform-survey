@@ -26,7 +26,7 @@ export function Tab({ children, index }: PropsWithChildren<{ index: number }>) {
     <button
       //   className={`${activeTab === index ? 'w-full' : ''}`}
       className={cn('border-b-[3px] p-[14px]', {
-        'text-main border-main': activeTab === index,
+        'text-main border-main font-bold': activeTab === index,
         'border-transparent text-gray-500': activeTab !== index,
       })}
       onClick={() => setActiveTab(index)}
