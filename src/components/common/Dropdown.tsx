@@ -25,6 +25,7 @@ interface DropdownContextType<T = unknown> {
 }
 
 interface DropdownProps<T> {
+  defaultValue?: T
   placeholder?: string
   options: DropdownOption<T>[]
   onChange?: (value: T) => void
@@ -32,9 +33,16 @@ interface DropdownProps<T> {
 
 const DropdownContext = createContext<DropdownContextType | null>(null)
 
-function Dropdown<T>({ placeholder, options, onChange }: PropsWithChildren<DropdownProps<T>>) {
+function Dropdown<T>({
+  defaultValue,
+  placeholder,
+  options,
+  onChange,
+}: PropsWithChildren<DropdownProps<T>>) {
   const [opened, setOpened] = useState(false)
-  const [selected, setSelected] = useState(-1)
+  const [selected, setSelected] = useState(
+    defaultValue ? options.findIndex((option) => option.value === defaultValue) : -1,
+  )
 
   const open = useCallback(() => setOpened(true), [])
   const close = useCallback(() => setOpened(false), [])
@@ -88,7 +96,7 @@ function DropdwonMenu() {
   return opened ? (
     <div
       ref={containerRef}
-      className="absolute left-0 top-100% w-full flex flex-col mt-10 border border-gray200 rounded-10 bg-white"
+      className="absolute left-0 top-100% w-full flex flex-col mt-10 border border-gray200 rounded-10 bg-white z-10"
     >
       {options.map((option, index) => (
         <DropdownMenuItem

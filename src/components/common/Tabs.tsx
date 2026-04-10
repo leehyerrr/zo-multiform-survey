@@ -25,7 +25,7 @@ export function Tab({ children, index }: PropsWithChildren<{ index: number }>) {
   return (
     <button
       //   className={`${activeTab === index ? 'w-full' : ''}`}
-      className={cn('border-b-[3px] p-[14px]', {
+      className={cn('border-b-3 p-14', {
         'text-main border-main font-bold': activeTab === index,
         'border-transparent text-gray-500': activeTab !== index,
       })}
