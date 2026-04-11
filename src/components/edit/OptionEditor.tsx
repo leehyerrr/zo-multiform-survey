@@ -27,7 +27,7 @@ function OptionEditor({ type }: OptionEditorProps) {
           />
         </div>
       ))}
-      <div className="flex items-center gap-5 mt-20">
+      <div className="flex items-center gap-5 my-20">
         <AddCircle />
         <button
           onClick={() => {
