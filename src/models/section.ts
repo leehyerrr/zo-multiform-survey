@@ -22,7 +22,7 @@ export default class Section implements SectionData {
       questions: [new Question()],
     },
   ) {
-    makeAutoObservable(this)
+    makeAutoObservable(this, {}, { autoBind: true })
     this.id = data.id
     this.title = data.title
     this.description = data.description

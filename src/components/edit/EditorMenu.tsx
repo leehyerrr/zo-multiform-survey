@@ -1,10 +1,9 @@
-import { observer } from 'mobx-react-lite'
 import PlusIcon from '../../assets/icons/add_circle.svg?react'
 import SectionPlusIcon from '../../assets/icons/view_comfy.svg?react'
 import { useSurveyStore } from '../../store'
 import classNames from 'classnames'
 
-const EditorMenu = observer(function EditorMenu({ className }: Cn) {
+function EditorMenu({ className }: Cn) {
   const surveyStore = useSurveyStore()
   return (
     <div
@@ -21,6 +20,6 @@ const EditorMenu = observer(function EditorMenu({ className }: Cn) {
       </button>
     </div>
   )
-})
+}
 
 export default EditorMenu

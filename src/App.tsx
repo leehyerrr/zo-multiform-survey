@@ -1,7 +1,7 @@
 import './App.css'
 import MainLayout from './components/common/MainLayout'
 import Tabs, { Tab, TabList, TabPanel, TabPanels } from './components/common/Tabs'
-import SectionEditorList from './components/edit/SectionEditorList'
+import SectionListEditor from './components/edit/SectionListEditor'
 import { SurveyStoreProvider } from './store'
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
           </TabList>
           <TabPanels>
             <TabPanel index={0}>
-              <SectionEditorList />
+              <SectionListEditor />
             </TabPanel>
             <TabPanel index={1}>2222</TabPanel>
           </TabPanels>
