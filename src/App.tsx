@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
 import MainLayout from './components/common/MainLayout'
-import Tabs, { Tab, TabList, TabPanel, TabPanels } from './components/common/Tabs'
-import SectionListEditor from './components/edit/SectionListEditor'
 import { SurveyStoreProvider } from './store'
 import AdminPage from './pages/AdminPage'
+import CreatePage from './pages/CreatePage'
+import EditPage from './pages/EditPage'
 
 function App() {
   return (
@@ -12,8 +12,9 @@ function App() {
       <MainLayout>
         <SurveyStoreProvider>
           <Routes>
+            <Route path="/surveys/new" element={<CreatePage />} />
             <Route path="/surveys/:surveyId" element={<AdminPage />}>
-              <Route path="edit" element={<SectionListEditor />} />
+              <Route path="edit" element={<EditPage />} />
               <Route path="responses" element={<div>응답</div>} />
             </Route>
           </Routes>

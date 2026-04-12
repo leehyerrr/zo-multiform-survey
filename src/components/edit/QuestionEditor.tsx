@@ -20,7 +20,11 @@ const QuestionEditor = observer(function QuestionEditor({ question, onCopy, onDe
   return (
     <Panel className="border-l-transparent focus-within:border-l-main border-l-2">
       <PanelHeader className="flex">
-        <Input className="flex-1 mr-30 border-b border-b-gray-200" />
+        <Input
+          className="flex-1 mr-30 border-b border-b-gray-200"
+          value={question.title}
+          onChange={(e) => question.setTitle(e.currentTarget.value)}
+        />
         <QuestionTypeEditor type={question.type} onChange={question.setType} />
       </PanelHeader>
       <PanelBody>
