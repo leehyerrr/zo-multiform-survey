@@ -41,7 +41,7 @@ function Dropdown<T>({
 }: PropsWithChildren<DropdownProps<T>>) {
   const [opened, setOpened] = useState(false)
   const [selected, setSelected] = useState(
-    defaultValue ? options.findIndex((option) => option.value === defaultValue) : -1,
+    defaultValue !== undefined ? options.findIndex((option) => option.value === defaultValue) : -1,
   )
 
   const open = useCallback(() => setOpened(true), [])
@@ -69,7 +69,7 @@ function Dropdown<T>({
     >
       <div className="text-left inline-block relative">
         <DropdownButton placeholder={placeholder} />
-        <DropdwonMenu />
+        <DropdownMenu />
       </div>
     </DropdownContext.Provider>
   )
@@ -90,8 +90,8 @@ function DropdownButton({ placeholder = 'selected' }: { placeholder?: string }) 
   )
 }
 
-function DropdwonMenu() {
-  const { close, opened, options, onChange } = useContext(DropdownContext)
+function DropdownMenu() {
+  const { close, opened, options, onChange } = useContext(DropdownContext)!
   const containerRef = useOutsideClick<HTMLDivElement>(close)
   return opened ? (
     <div
