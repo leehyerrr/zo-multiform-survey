@@ -1,13 +1,5 @@
 import { makeAutoObservable } from 'mobx'
-import type { QuestionType } from '../types/app'
-
-type QuestionData = {
-  id: number
-  title: string
-  type: QuestionType
-  required: boolean
-  options?: string[]
-}
+import type { QuestionData, QuestionType } from '../types/app'
 
 export default class Question implements QuestionData {
   id: number
@@ -49,5 +41,12 @@ export default class Question implements QuestionData {
   }
   setOptions(options: string[]) {
     this.options = options
+  }
+
+  setOption(index: number, option: string) {
+    if (!this.options) {
+      return
+    }
+    this.options[index] = option
   }
 }

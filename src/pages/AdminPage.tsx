@@ -21,7 +21,7 @@ function Tab({ children, path }: PropsWithChildren<{ path: string }>) {
   return (
     <NavLink
       className={({ isActive }) =>
-        cn('border-b-3 p-14', {
+        cn('border-b-3 p-10 text-[18px]', {
           'text-main border-main font-bold': isActive,
           'border-transparent text-gray-500': !isActive,
         })

@@ -1,11 +1,12 @@
 import { makeAutoObservable } from 'mobx'
 import { createContext, useContext, type PropsWithChildren } from 'react'
-import Section, { type SectionData } from './models/section'
+import Section from './models/section'
 import callApi from './utils/api'
+import type { SectionData } from './types/app'
 
 class SurveyStore {
   emailCollected: boolean
-  sections: Section[] = []
+  sections: Section[]
   focusedSectionId: number | null = null
 
   constructor() {

@@ -93,6 +93,12 @@
   --radius-10:10px;
 }
 
+@utility auto-grow {
+  grid-area: 1 / 1 / 2 / 2;
+  overflow: hidden;
+  word-break: break-all;
+}
+
 html,
 body,
 #root {

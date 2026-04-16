@@ -1,13 +1,14 @@
+import Question from '../../models/question'
 import type { QuestionType } from '../../types/app'
 import Input from '../common/Input'
 import OptionEditor from './OptionEditor'
 
 interface QuestionBodyEditorProps {
-  type: QuestionType
+  question: Question
 }
 
-function QuestionBodyEditor({ type }: QuestionBodyEditorProps) {
-  switch (type) {
+function QuestionBodyEditor({ question }: QuestionBodyEditorProps) {
+  switch (question.type) {
     case 'shortText':
     case 'longText':
     case 'date':
@@ -22,7 +23,7 @@ function QuestionBodyEditor({ type }: QuestionBodyEditorProps) {
     case 'dropdown':
       return (
         <div className="mt-25">
-          <OptionEditor type={type} />
+          <OptionEditor question={question} />
         </div>
       )
     default:

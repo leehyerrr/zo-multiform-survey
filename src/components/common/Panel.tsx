@@ -28,11 +28,13 @@ export function PanelFooter({ className, children }: PropsWithChildren<Cn>) {
 
 export function PanelCap({ children }: PropsWithChildren) {
   return (
-    <div className="-mb-10 relative">
-      <div className="inline-block px-14 pt-10 pb-6 bg-main rounded-t-10 text-[15px] text-white">
-        {children}
-      </div>
-      <div className="bg-main h-9"></div>
+    <div className="-mb-10  relative">
+      {children && (
+        <div className="inline-block px-14 pt-10 pb-6 bg-main rounded-t-10 text-[15px] text-white">
+          {children}
+        </div>
+      )}
+      <div className="bg-main h-9 rounded-t-[5px]"></div>
     </div>
   )
 }

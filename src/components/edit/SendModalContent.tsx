@@ -11,7 +11,7 @@ interface Props {
 }
 
 function SendModalContent({ surveyId, emailCollected, onClose }: Props) {
-  const path = `${location.host}/surveys/${surveyId}`
+  const path = `${window.location.origin}/surveys/${surveyId}`
 
   const handleCopy = () => {
     navigator.clipboard.writeText(path)

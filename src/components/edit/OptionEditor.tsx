@@ -4,13 +4,16 @@ import Input from '../common/Input'
 import RadioIcon from '../../assets/icons/radio_button_unchecked.svg?react'
 import CheckboxIcon from '../../assets/icons/check_box_outline_blank.svg?react'
 import AddCircle from '../../assets/icons/add_circle.svg?react'
+import Question from '../../models/question'
+import { observer } from 'mobx-react-lite'
 
 interface OptionEditorProps {
-  type: QuestionType
+  question: Question
 }
 
-function OptionEditor({ type }: OptionEditorProps) {
-  const [options, setOptions] = useState<string[]>([''])
+const OptionEditor = observer(function OptionEditor({
+  question: { options = [], type, setOption, setOptions },
+}: OptionEditorProps) {
   return (
     <div>
       {options.map((option, index) => (
@@ -19,9 +22,7 @@ function OptionEditor({ type }: OptionEditorProps) {
           <Input
             value={option}
             onChange={(e) => {
-              const newOptions = [...options]
-              newOptions[index] = e.target.value
-              setOptions(newOptions)
+              setOption(index, e.currentTarget.value)
             }}
             className="ml-10"
           />
@@ -31,7 +32,7 @@ function OptionEditor({ type }: OptionEditorProps) {
         <AddCircle />
         <button
           onClick={() => {
-            setOptions((prev) => [...prev, ''])
+            setOptions([...options, `옵션 ${options.length + 1}`])
           }}
           className="hover:cursor-pointer"
         >
@@ -40,7 +41,7 @@ function OptionEditor({ type }: OptionEditorProps) {
       </div>
     </div>
   )
-}
+})
 
 const icons: Partial<Record<QuestionType, ReactNode>> = {
   multipleChoice: <RadioIcon />,
