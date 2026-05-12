@@ -7,6 +7,7 @@ import CreatePage from './pages/CreatePage'
 import EditPage from './pages/EditPage'
 import FormPage from './pages/FormPage'
 import CompletePage from './pages/CompletePage'
+import Test from './pages/Test'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="responses" element={<div>응답</div>} />
             </Route>
             <Route path="/surveys/:surveyId/complete" element={<CompletePage />} />
+            <Route path="/test" element={<Test />} />
           </Routes>
         </SurveyStoreProvider>
       </MainLayout>
