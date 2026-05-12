@@ -72,6 +72,12 @@ interface AccordionContextType {
   toggle: (value: string) => void
   size: NonNullable<VariantProps<typeof triggerVariants>['size']>
   color: NonNullable<VariantProps<typeof triggerVariants>['color']>
+  registerTrigger: (el: HTMLButtonElement) => void
+  unregisterTrigger: (el: HTMLButtonElement) => void
+  focusNext: (current: HTMLButtonElement) => void
+  focusPrev: (current: HTMLButtonElement) => void
+  focusFirst: () => void
+  focusLast: () => void
 }
 
 const AccordionContext = createContext<AccordionContextType | null>(null)
@@ -110,6 +116,44 @@ function Accordion({
 }: AccordionProps) {
   const [value, setValue] = useState<string[]>(defaultValue)
 
+  const triggerRefs = React.useRef<HTMLButtonElement[]>([])
+
+  const registerTrigger = (el: HTMLButtonElement) => {
+    if (!triggerRefs.current.includes(el)) {
+      triggerRefs.current.push(el)
+    }
+  }
+
+  const unregisterTrigger = (el: HTMLButtonElement) => {
+    triggerRefs.current = triggerRefs.current.filter((ref) => ref !== el)
+  }
+
+  const focusNext = (current: HTMLButtonElement) => {
+    const list = triggerRefs.current
+    const index = list.indexOf(current)
+
+    const next = index === list.length - 1 ? list[0] : list[index + 1]
+
+    next?.focus()
+  }
+
+  const focusPrev = (current: HTMLButtonElement) => {
+    const list = triggerRefs.current
+    const index = list.indexOf(current)
+
+    const prev = index === 0 ? list[list.length - 1] : list[index - 1]
+
+    prev?.focus()
+  }
+
+  const focusFirst = () => {
+    triggerRefs.current[0]?.focus()
+  }
+
+  const focusLast = () => {
+    triggerRefs.current.at(-1)?.focus()
+  }
+
   const toggle = (target: string) => {
     if (type === 'single') {
       setValue((prev) => (prev.includes(target) ? [] : [target]))
@@ -129,6 +173,13 @@ function Accordion({
         toggle,
         size,
         color,
+
+        registerTrigger,
+        unregisterTrigger,
+        focusNext,
+        focusPrev,
+        focusFirst,
+        focusLast,
       }}
     >
       <div className="space-y-2">{children}</div>
@@ -191,16 +242,64 @@ function Trigger({ children, className, ...props }: TriggerProps) {
   const accordion = useAccordion()
   const item = useItem()
 
+  const ref = React.useRef<HTMLButtonElement>(null)
+
   const isOpen = accordion.value.includes(item.value)
+
+  React.useEffect(() => {
+    if (!ref.current) return
+
+    accordion.registerTrigger(ref.current)
+
+    return () => {
+      if (ref.current) {
+        accordion.unregisterTrigger(ref.current)
+      }
+    }
+  }, [accordion])
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (!ref.current) return
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        accordion.focusNext(ref.current)
+        break
+
+      case 'ArrowUp':
+        e.preventDefault()
+        accordion.focusPrev(ref.current)
+        break
+
+      case 'Home':
+        e.preventDefault()
+        accordion.focusFirst()
+        break
+
+      case 'End':
+        e.preventDefault()
+        accordion.focusLast()
+        break
+
+      case 'Enter':
+      case ' ':
+        e.preventDefault()
+        accordion.toggle(item.value)
+        break
+    }
+  }
 
   return (
     <h3>
       <button
+        ref={ref}
         id={item.triggerId}
         type="button"
         aria-expanded={isOpen}
         aria-controls={item.contentId}
         onClick={() => accordion.toggle(item.value)}
+        onKeyDown={handleKeyDown}
         className={cn(
           triggerVariants({
             size: accordion.size,
